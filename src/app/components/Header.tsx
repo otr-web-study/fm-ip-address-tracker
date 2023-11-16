@@ -7,6 +7,14 @@ interface HeaderProps {
 export const Header: React.FC<HeaderProps> = ({ onSearch }) => {
   const [searchString, setSearchString] = useState('');
 
+  const handleSearch: React.FormEventHandler<HTMLFormElement> = (e) => {
+    e.preventDefault();
+
+    if (searchString) {
+      onSearch(searchString);
+    }
+  };
+
   return (
     <header className="flex min-h-[300px] flex-col items-center gap-[23px] bg-mobile bg-cover px-6 pt-[26px] md:min-h-[280px] md:gap-[28px] md:bg-desktop md:pt-[30px]">
       <h1 className="text-[25px] font-medium tracking-[0.25px] text-white md:text-[31px] md:font-bold md:tracking-normal">
@@ -14,7 +22,7 @@ export const Header: React.FC<HeaderProps> = ({ onSearch }) => {
       </h1>
       <form
         className="flex w-full max-w-[555px] items-center gap-2 overflow-hidden rounded-[15px] bg-white pl-6"
-        onSubmit={() => onSearch(searchString)}
+        onSubmit={handleSearch}
       >
         <input
           className="min-w-[50px] flex-grow text-lg outline-none"
