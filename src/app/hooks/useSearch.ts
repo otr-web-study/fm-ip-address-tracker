@@ -34,6 +34,7 @@ export const useSearch = () => {
   const search = async (query: string | null = null) => {
     setData(null);
     setIsLoading(true);
+    setError(null);
 
     const url = '/api/search' + (query ? `?query=${encodeURI(query)}` : '');
     let res;
