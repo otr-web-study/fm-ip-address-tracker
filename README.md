@@ -17,7 +17,7 @@ Users should be able to:
 
 ### Links
 
-- [Solution] ()
+- [Solution] (https://www.frontendmentor.io/solutions/ip-address-tracker-N_QZJA25fF)
 - [Live Site] (https://fm-ip-address-tracker-rho.vercel.app/)
 
 ### Built with
@@ -25,8 +25,6 @@ Users should be able to:
 - Next.js
 - TypeScript
 - Tailwindcss
-- NextUI
-- Framer Motion
 
 ### Author
 
