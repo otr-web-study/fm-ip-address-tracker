@@ -20,39 +20,18 @@ const ipifyAPI = (query: string) => {
 };
 
 export async function GET(request: NextRequest) {
-  // const searchParams = request.nextUrl.searchParams;
-  // const query = searchParams.get('query') || '';
+  const searchParams = request.nextUrl.searchParams;
+  const query = searchParams.get('query') || '';
 
-  // let res;
+  let res;
 
-  // try {
-  //   res = await fetch(ipifyAPI(query));
-  // } catch (e) {
-  //   return new Response('', { status: 500 });
-  // }
+  try {
+    res = await fetch(ipifyAPI(query));
+  } catch (e) {
+    return new Response('', { status: 500 });
+  }
 
-  // const data = await res.json();
+  const data = await res.json();
 
-  // return Response.json(data, { status: res.status });
-  return Response.json({
-    ip: '38.21.14.29',
-    location: {
-      country: 'RU',
-      region: 'Moskva',
-      city: 'Moscow',
-      lat: 55.75222,
-      lng: 37.61556,
-      postalCode: '',
-      timezone: '+03:00',
-      geonameId: 524901,
-    },
-    as: {
-      asn: 12389,
-      name: 'ROSTELECOM-AS',
-      route: '37.22.0.0/17',
-      domain: 'rt.ru',
-      type: 'NSP',
-    },
-    isp: 'Rostelecom networks',
-  });
+  return Response.json(data, { status: res.status });
 }

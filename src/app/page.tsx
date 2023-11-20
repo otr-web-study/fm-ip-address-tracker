@@ -1,9 +1,10 @@
 'use client';
+import dynamic from 'next/dynamic';
 import { Header } from '@/app/components/Header';
-import { InfoPanel } from './components/InfoPanel';
-import { Map } from './components/Map';
-import { useSearch } from './hooks/useSearch';
-import { YMaps } from '@pbe/react-yandex-maps';
+import { InfoPanel } from '@/app/components/InfoPanel';
+import { useSearch } from '@/app/hooks/useSearch';
+
+const Map = dynamic(() => import('@/app/components/Map'), { ssr: false });
 
 export default function Home() {
   const { data, error, isLoading, search } = useSearch();
@@ -13,9 +14,7 @@ export default function Home() {
       <Header onSearch={search} />
       <main className="relative">
         <InfoPanel data={data} error={error} isLoading={isLoading} />
-        <YMaps query={{ lang: 'en_RU' }}>
-          <Map coordinates={data?.coordinates} />
-        </YMaps>
+        <Map coordinates={data?.coordinates} />
       </main>
     </>
   );
