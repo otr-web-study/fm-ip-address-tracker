@@ -27,8 +27,6 @@ export async function GET(request: NextRequest) {
       ? request.headers.get('x-forwarded-for') ?? ''
       : '';
 
-  // console.log(request.headers);
-
   let res;
 
   try {
