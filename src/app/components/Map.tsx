@@ -11,7 +11,6 @@ const { YMap, YMapDefaultSchemeLayer, YMapDefaultFeaturesLayer, YMapControls, YM
   reactify.module(ymaps3);
 
 const { YMapZoomControl } = reactify.module(await ymaps3.import('@yandex/ymaps3-controls@0.0.1'));
-const { YMapDefaultMarker } = reactify.module(await ymaps3.import('@yandex/ymaps3-markers@0.0.1'));
 
 interface MapProps {
   coordinates:
@@ -37,7 +36,7 @@ const Map: FC<MapProps> = ({ coordinates }) => {
       <YMapDefaultFeaturesLayer />
 
       <YMapMarker coordinates={location.center as LngLat} zIndex={1}>
-        <div className="h-[56px] w-[46px]">
+        <div className="relative h-[56px] w-[46px]">
           <Image src="/icon-location.svg" alt="location" fill />
         </div>
       </YMapMarker>

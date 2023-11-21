@@ -3,14 +3,15 @@ import { type NextRequest } from 'next/server';
 const IPIFY_API_KEY = process.env.IPIFY_API_KEY ?? '';
 const BASE_URL = 'https://geo.ipify.org/api/v2/country,city';
 
+const isIP = (value: string) =>
+  /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(
+    value,
+  );
+
 const ipifyAPI = (query: string) => {
   const url = new URL(BASE_URL);
   url.searchParams.set('apiKey', IPIFY_API_KEY);
-  if (
-    /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(
-      query,
-    )
-  ) {
+  if (isIP(query)) {
     url.searchParams.set('ipAddress', query);
   } else if (query) {
     url.searchParams.set('domain', query);
@@ -21,7 +22,12 @@ const ipifyAPI = (query: string) => {
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
-  const query = searchParams.get('query') || '';
+  const query =
+    searchParams.get('query') || isIP(request.headers.get('x-forwarded-for') ?? '')
+      ? request.headers.get('x-forwarded-for') ?? ''
+      : '';
+
+  // console.log(request.headers);
 
   let res;
 
